@@ -31,6 +31,8 @@ Status read_and_validate_view_args(char *argv[],ViewInfo *viewinfo);
 /* Perform the view */
 Status do_view(char *argv[],ViewInfo *viewinfo);
 
+/* Tag Validation */
 Status validate(char frameid[]);
+
 
 #endif

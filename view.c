@@ -2,6 +2,7 @@
 #include<string.h>
 #include "types.h"
 #include "view.h"
+#include "print.h"
 
 Status read_and_validate_view_args(char* argv[],ViewInfo *viewinfo){
 
@@ -46,6 +47,8 @@ Status read_and_validate_view_args(char* argv[],ViewInfo *viewinfo){
 
 Status do_view(char *argv[],ViewInfo *viewinfo)
 {
+    print_start_format();
+
     fseek(viewinfo->fptr_mp3,10,SEEK_SET);      /* Move offset to 10th pos */
 
     for(int i=0;i<6;i++)
@@ -78,7 +81,7 @@ Status do_view(char *argv[],ViewInfo *viewinfo)
 
         if(validate(viewinfo->frame_id) == e_success)
         {
-            printf("Frame ID: %s\n",viewinfo->frame_id);
+            printf("%d\t|\t%s\t|\t",i+1,viewinfo->frame_id);
 
             /* Printing the meta data */
             char data_buffer[viewinfo->frame_size + 1];
@@ -90,7 +93,7 @@ Status do_view(char *argv[],ViewInfo *viewinfo)
 
             data_buffer[viewinfo->frame_size] = '\0';
 
-            printf("Metadata : %s\n",data_buffer+1);
+            printf("%s\n",data_buffer+1);
         }
         else
         {
@@ -98,6 +101,7 @@ Status do_view(char *argv[],ViewInfo *viewinfo)
             fseek(viewinfo->fptr_mp3,viewinfo->frame_size,SEEK_CUR);
         }
     }
+    print_end_format();
 
     return e_success;
 }
@@ -115,3 +119,4 @@ Status validate(char frameid[]){
 
     return e_failure;
 }
+
