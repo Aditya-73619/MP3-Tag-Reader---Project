@@ -21,7 +21,7 @@ Status read_and_validate_view_args(char* argv[],ViewInfo *viewinfo){
 
     viewinfo->mp3_fname = argv[2];      //storing mp3 file name
 
-    viewinfo->fptr_mp3 = fopen(viewinfo->mp3_fname,"rb");    //open mp3 file
+    viewinfo->fptr_mp3 = fopen(viewinfo->mp3_fname,"r");    //open mp3 file
 
     if(viewinfo->fptr_mp3 == NULL){
         printf("Error : MP3 file not opened\n");
@@ -45,12 +45,13 @@ Status read_and_validate_view_args(char* argv[],ViewInfo *viewinfo){
 
 }
 
-Status do_view(char *argv[],ViewInfo *viewinfo)
+Status do_view(ViewInfo *viewinfo)
 {
     print_start_format();
 
     fseek(viewinfo->fptr_mp3,10,SEEK_SET);      /* Move offset to 10th pos */
 
+    
     for(int i=0;i<6;i++)
     {
         /* Read frame ID */
@@ -112,7 +113,7 @@ Status validate(char frameid[]){
         (strcmp(frameid,"TALB") == 0) ||
         (strcmp(frameid,"TYER") == 0) ||
         (strcmp(frameid,"TCON") == 0) ||
-        (strcmp(frameid,"TCOM") == 0))
+        (strcmp(frameid,"COMM") == 0))
     {
         return e_success;
     }

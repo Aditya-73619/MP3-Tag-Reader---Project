@@ -16,6 +16,14 @@ typedef struct _ViewInfo
     char frame_id[MAX_FRAME_ID_SIZE];
     uint frame_size;
 
+    /* Edit info */
+    char *edit_frame;
+    char *edit_data;
+    char *temp_mp3_fname;
+    FILE *fptr_temp_mp3;
+    uint new_frame_size;
+
+
 
 } ViewInfo;
 
@@ -29,10 +37,24 @@ OperationType checkoperation_type(char ch);
 Status read_and_validate_view_args(char *argv[],ViewInfo *viewinfo);
 
 /* Perform the view */
-Status do_view(char *argv[],ViewInfo *viewinfo);
+Status do_view(ViewInfo *viewinfo);
 
 /* Tag Validation */
 Status validate(char frameid[]);
 
 
 #endif
+
+
+
+/*
+chot73619@gmail.com
+guptaji5122@gmail.com
+guptaji5124@gmail.com
+guptaji5125@gmail.com
+guptaji5127@gmail.com
+guptaji5128@gmail.com
+adityagupta122003@gmail.com
+lalla73619@gmail.com
+umesh73619@gmail.com
+*/
