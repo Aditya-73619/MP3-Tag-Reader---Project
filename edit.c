@@ -68,7 +68,6 @@ Status read_and_validate_edit_args(char *argv[],ViewInfo *viewinfo)
 
 Status do_edit(ViewInfo *viewinfo)
 {
-
     if(create_file(viewinfo) == e_failure){
         printf("Error : File not opened\n");
         return e_failure;
@@ -80,8 +79,7 @@ Status do_edit(ViewInfo *viewinfo)
     }
 
     
-    
-    while(1){       
+    while(1){ 
         char tag_buffer[5];     // Tag ID copy 
         
         if(fread(tag_buffer,4,1,viewinfo->fptr_mp3) == 0){
@@ -91,7 +89,7 @@ Status do_edit(ViewInfo *viewinfo)
 
         tag_buffer[4] = '\0';
         
-        /* if tag matched */
+        /* if tag is matched */
         if(strcmp(tag_buffer,viewinfo->edit_frame) == 0)
         {
             if(edit_tag(viewinfo,tag_buffer) == e_failure){
@@ -101,7 +99,7 @@ Status do_edit(ViewInfo *viewinfo)
 
             break;
         }
-        else
+        else        // tag is not matched
         {
             if(copy_data(viewinfo,tag_buffer) == e_failure){
                 printf("Error : Unable to copy data\n");
@@ -117,6 +115,19 @@ Status do_edit(ViewInfo *viewinfo)
 
     fclose(viewinfo->fptr_mp3);
     fclose(viewinfo->fptr_temp_mp3);
+
+
+    /* Deleting the main file */
+    if(remove(viewinfo->mp3_fname) != 0){
+        printf("Error : Unable to change main file name\n");
+        return e_failure;
+    }
+
+    /* Renaming the temp file to main file */
+    if(rename(viewinfo->temp_mp3_fname,viewinfo->mp3_fname) != 0){
+        printf("Error : Unable to change name file name\n");
+        return e_failure;
+    }
 
     return e_success;
 }
@@ -204,7 +215,7 @@ Status edit_tag(ViewInfo *viewinfo, char tag_buffer[])
         return e_failure;
     }
 
-    /*  */
+    /* moving the cursor */
     fseek(viewinfo->fptr_mp3,viewinfo->frame_size - 1, SEEK_CUR);
 
     return e_success;

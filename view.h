@@ -44,17 +44,3 @@ Status validate(char frameid[]);
 
 
 #endif
-
-
-
-/*
-chot73619@gmail.com
-guptaji5122@gmail.com
-guptaji5124@gmail.com
-guptaji5125@gmail.com
-guptaji5127@gmail.com
-guptaji5128@gmail.com
-adityagupta122003@gmail.com
-lalla73619@gmail.com
-umesh73619@gmail.com
-*/

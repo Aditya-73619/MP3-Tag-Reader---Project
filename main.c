@@ -16,7 +16,8 @@ int main(int argc,char *argv[]){
 
     OperationType op = checkoperation_type(argv[1][1]);
 
-    if(op == e_view){
+    if(op == e_view)
+    {
         if(argc != 3){
             printf("Invalid Input\n");
             return e_failure;
@@ -30,8 +31,8 @@ int main(int argc,char *argv[]){
         }
     }
 
-    else if(op == e_edit){
-        
+    else if(op == e_edit)
+    {    
         if(argc != 5){
             printf("Invalid Input\n");
             return e_failure;
@@ -52,10 +53,9 @@ int main(int argc,char *argv[]){
     else{
         printf("Invalid operation\n");
         return e_failure;
-    }
-    
+    }    
 }
-    
+
 
 OperationType checkoperation_type(char ch){
     if(ch == 'v')
